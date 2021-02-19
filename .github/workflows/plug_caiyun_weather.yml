@@ -1,0 +1,22 @@
+name: '彩云天气'
+
+on:
+  watch:
+    types: [started]
+  schedule:
+    - cron: '0 0-15 * * *'
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: npm install
+      - run: node ./plugins/caiyun_weather.js
+        env:
+          bot_api: ${{ secrets.bot_api }}
+          caiyun_key: ${{ secrets.caiyun_key }}
+          caiyun_gps: ${{ secrets.caiyun_gps }}

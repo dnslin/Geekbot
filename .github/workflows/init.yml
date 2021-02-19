@@ -1,0 +1,22 @@
+name: 'GeekBot'
+
+on:
+  push:
+  pull_request:
+  watch:
+    types: [started]
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: npm install
+      - run: npm start
+        env:
+          bot_api: ${{ secrets.bot_api }}
+          secrets_caiyun_key: ${{ secrets.caiyun_key }}
+          secrets_caiyun_gps: ${{ secrets.caiyun_gps }}

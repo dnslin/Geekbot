@@ -1,0 +1,21 @@
+name: '毒鸡汤'
+
+on:
+  watch:
+    types: [started]
+  schedule:
+    - cron: '00 0-14 * * *'
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: npm install
+      - run: node ./plugins/dujitang.js
+        env:
+          bot_api: ${{ secrets.bot_api }}
+          plug_disabled: ${{ secrets.plug_dujitang_disabled }}
